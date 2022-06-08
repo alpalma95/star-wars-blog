@@ -1,7 +1,14 @@
 import React from "react";
+import SectionCharacters from "./SectionCharacters";
+import SectionPlanets from "./SectionPlanets"
 
 const List = () => {
-    return <h1>I'm a list!</h1>
+    return (
+        <>
+            <SectionCharacters sectionTitle="Characters" />
+            <SectionPlanets sectionTitle="Planets" />
+        </>
+    )
 }
 
-export default List
+export default List;

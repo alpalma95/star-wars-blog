@@ -1,9 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			test: {
-				title: "test1"
-			}
+			favorites: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -12,6 +10,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
+			},
+			addFavorite: (obj) => {
+				const store = getStore()			
+				setStore({favorites: [...store.favorites, obj]}) 
 			}
 		}
 	};

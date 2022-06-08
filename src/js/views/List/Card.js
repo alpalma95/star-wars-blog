@@ -1,29 +1,67 @@
-import React from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Link} from "react-router-dom";
+import {Context} from "../../store/appContext";
 
-const Card = ({sectionTitle, cardTitle, gender, hair, eye, population, terrain}) => {
+
+const Card = ({sectionTitle, cardTitle, url, id}) => {
+    const [details, setDetails] = useState([]);
+
+    const {store, actions} = useContext(Context);
+
+    const fetchDetails = (url) => {
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            setDetails(data.result.properties)
+            if (sectionTitle === "Characters") {
+                actions.addCharactersDetails(data.result.properties)
+            } else {
+                actions.addPlanetDetails(data.result.properties)
+            }
+        })
+        .catch(err => console.error('Error! Youve been blocked hehe', err));
+    };
+
+    useEffect(()=> {
+        fetchDetails(url);
+        console.log(`I'm on Card.js ${details}`)
+    }, [])
+
+    //useeffect
+    // fetch(url)-> data -> hair / popul
 
     const cardType = sectionTitle;
+
+    const imgUrl = (
+        cardType === "Characters" ?
+        `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`
+        : 
+        cardType === "Planets" && id == "1" ?
+        "https://picsum.photos/300/300"
+        :
+        `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`
+    )
+
 
     const bodyContent = ( 
         cardType === "Characters" ?
 
         <ul className="list-unstyled card-text">
-            <li>Gender: {gender} </li>
-            <li>Hair-color: {hair} </li>
-            <li>Eye-Color: {eye}</li>
+            <li>Gender: {details.gender} </li>
+            <li>Hair-color: {details.hair_color} </li>
+            <li>Eye-Color: {details.eye_color}</li>
         </ul>
         :
         <ul className="list-unstyled card-text">
-            <li>Population: {population}</li>
-            <li>Terrain: {terrain}</li>
+            <li>Population: {details.population}</li>
+            <li>Terrain: {details.terrain}</li>
         </ul>
     )
 
 
     return (
         <div className="card col-5" style={{width: "18rem"}}>
-            <img src="https://picsum.photos/300/200" className="card-img-top" alt="..." />
+            <img src={imgUrl} className="card-img-top" alt="..." />
             <div className="card-body">
                 <h5 className="card-title">{cardTitle}</h5>
                 {bodyContent}

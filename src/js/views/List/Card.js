@@ -41,7 +41,13 @@ const Card = ({sectionTitle, cardTitle, url, id}) => {
         :
         `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`
     )
-
+    
+    const routerLink = (
+        cardType === "Characters" ?
+        `/people/${id}`
+        :
+        `/planets/${id}`
+    );
 
     const bodyContent = ( 
         cardType === "Characters" ?
@@ -66,7 +72,7 @@ const Card = ({sectionTitle, cardTitle, url, id}) => {
                 <h5 className="card-title">{cardTitle}</h5>
                 {bodyContent}
                 <div className="d-flex">
-                <Link to="#">
+                <Link to={routerLink}>
                     <button className="btn btn-outline-primary">Learn more!</button>
                 </Link>
                 <button className="btn btn-outline-warning ms-auto">

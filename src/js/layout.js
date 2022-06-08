@@ -8,7 +8,8 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
 import List from "./views/List/List";
-import Details from "./views/Details";
+import DetailsCharacter from "./views/DetailsCharacter";
+import DetailsPlanet from "./views/DetailsPlanet";
 
 //create your first component
 const Layout = () => {
@@ -22,12 +23,9 @@ const Layout = () => {
 				<ScrollToTop>
 					<Navbar />
 					<Switch>
-						<Route exact path="/">
-							<List />
-						</Route>
-						<Route exact path="/details">
-							<Details />
-						</Route>
+						<Route exact path="/" component={List} />
+						<Route exact path="/planets/:id" component={DetailsPlanet} />
+						<Route exact path="/people/:id" component={DetailsCharacter} />
 					</Switch>
 					<Footer />
 				</ScrollToTop>

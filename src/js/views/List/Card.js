@@ -29,7 +29,7 @@ const Card = ({sectionTitle, cardTitle, gender, hair, eye, population, terrain})
                 {bodyContent}
                 <div className="d-flex">
                 <Link to="#">
-                    <button className="btn btn-outline-primary">Go somewhere</button>
+                    <button className="btn btn-outline-primary">Learn more!</button>
                 </Link>
                 <button className="btn btn-outline-warning ms-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-heart" viewBox="0 0 16 16">

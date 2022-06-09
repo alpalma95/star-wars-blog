@@ -4,10 +4,13 @@ import { Context } from "../store/appContext";
 const Details = ({match}) => {
 
     useEffect(() => {console.log(match)}, [])
+    const {store, actions} = useContext(Context);
 
-    const [generalInfo, setGeneralInfo] = useState({
-        name: "loading"
-    });
+
+    let detailsId = match.params.id.slice(2);
+    let general = store.planets.find(x => x.uid == detailsId)
+
+    const [generalInfo, setGeneralInfo] = useState(general);
     const [details, setDetails] = useState({
         description: "Loading...",
         properties: {
@@ -20,25 +23,23 @@ const Details = ({match}) => {
         }
     });
 
-    const {store, actions} = useContext(Context);
+
+    let url = `https://www.swapi.tech/api/planets/${detailsId}`
 
     useEffect(() => {
-
-        for (let i in store.planets) {
-            if (store.planets[i].uid == match.params.id) setGeneralInfo(store.planets[i])
+        if (store.planetsDetails.find(x => x.uid == detailsId)) {
+            setDetails(store.planetsDetails.find(x => x.uid == detailsId))
+        } else {
+            actions.loadDetails(url, "planet")
         }
-        
-        for (let i in store.planetsDetails) {
-            if (store.planetsDetails[i].uid == match.params.id) setDetails(store.planetsDetails[i])
-        }
+    }, [store.planetsDetails])
 
-    }, [])
 
     const imgUrl = (
-        match.params.id == "1" ?
+        match.params.id == "p-1" ?
         "https://picsum.photos/300/300"
         :
-        `https://starwars-visualguide.com/assets/img/planets/${match.params.id}.jpg`
+        `https://starwars-visualguide.com/assets/img/planets/${detailsId}.jpg`
     )
 
     return (

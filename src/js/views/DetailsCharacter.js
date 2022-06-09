@@ -3,9 +3,13 @@ import { Context } from "../store/appContext";
 
 const Details = ({match}) => {
 
-    const [generalInfo, setGeneralInfo] = useState({
-        name: "loading"
-    });
+    const {store, actions} = useContext(Context);
+
+
+    let detailsId = match.params.id.slice(2);
+    let general = store.characters.find(x => x.uid == detailsId)
+
+    const [generalInfo, setGeneralInfo] = useState(general);
     const [details, setDetails] = useState({
         description: "Loading...",
         properties: {
@@ -18,25 +22,22 @@ const Details = ({match}) => {
         }
     });
 
-    const {store, actions} = useContext(Context)
+
+    let url = `https://www.swapi.tech/api/people/${detailsId}`
 
     useEffect(() => {
-
-        for (let i in store.characters) {
-            if (store.characters[i].uid == match.params.id) setGeneralInfo(store.characters[i])
+        if (store.charactersDetails.find(x => x.uid == detailsId)) {
+            setDetails(store.charactersDetails.find(x => x.uid == detailsId))
+        } else {
+            actions.loadDetails(url, "character")
         }
-        
-        for (let i in store.charactersDetails) {
-            if (store.charactersDetails[i].uid == match.params.id) setDetails(store.charactersDetails[i])
-        }
-
-    }, [])
+    }, [store.charactersDetails])
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col-6">
-                    <img src={`https://starwars-visualguide.com/assets/img/characters/${match.params.id}.jpg`} alt="character of Star Wars universe" />
+                    <img src={`https://starwars-visualguide.com/assets/img/characters/${match.params.id.slice(2)}.jpg`} alt="character of Star Wars universe" />
                 </div>
                 <div className="col-6">
                     <h1>{generalInfo.name}</h1>

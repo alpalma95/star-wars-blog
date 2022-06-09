@@ -18,9 +18,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(response => response.json())
 				.then(data => setStore({characters: data.results}))
 				.catch(err => console.error(err.message))
+				console.log(store)
 			},
 			loadPlanets: () => {
 				const store = getStore();
+
 				fetch(`https://www.swapi.tech/api/planets/`)
 				.then(response => response.json())
 				.then(data => setStore({planets: data.results}))
@@ -29,17 +31,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(store);
 
 			},
-			addCharactersDetails: (data) => {
+			loadCharactersDetails: (url) => {
 				const store = getStore();
 
-				setStore({charactersDetails: [...store.charactersDetails, data]})
-			},
-			addPlanetDetails: (data) => {
-				const store = getStore();
-
-				setStore({planetsDetails: [...store.planetsDetails, data]})
+				fetch(url)
+				.then(response => response.json())
+				.then(data => {
+					setStore({charactersDetails: [...store.charactersDetails, data.result]})
+				})
 				console.log(store)
 
+
+			},
+			loadPlanetsDetails: (url) => {
+				const store = getStore();
+
+				fetch(url)
+				.then(response => response.json())
+				.then(data => {
+					setStore({planetsDetails: [...store.planetsDetails, data.result]})
+				})
+
+				console.log(store)
 			},
 			addFavorite: (obj) => {
 				// const store = getStore()			

@@ -4,28 +4,38 @@ import {Context} from "../../store/appContext";
 
 
 const Card = ({sectionTitle, cardTitle, url, id}) => {
-    const [details, setDetails] = useState([]);
-
+  
     const {store, actions} = useContext(Context);
 
-    const fetchDetails = (url) => {
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            setDetails(data.result.properties)
-            if (sectionTitle === "Characters") {
-                actions.addCharactersDetails(data.result.properties)
-            } else {
-                actions.addPlanetDetails(data.result.properties)
-            }
-        })
-        .catch(err => console.error('Error! Youve been blocked hehe', err));
-    };
-
     useEffect(()=> {
-        fetchDetails(url);
-        console.log(`I'm on Card.js ${details}`)
+        if (sectionTitle === "Characters") actions.loadCharactersDetails(url);
+      
     }, [])
+
+    useEffect(()=>{
+        if (sectionTitle === "Planets") actions.loadPlanetsDetails(url);
+    }, [])
+    
+    const [details, setDetails] = useState({
+        properties: {
+            gender: "loading",
+            hair_color: "loading",
+            eye_color: "loading",
+            population: "loading",
+            terrain: "loading"
+        }
+    }) //put values as undefined
+
+    // if (sectionTitle === "Characters"){
+    //     for (let i in store.characters){
+    //         if (store.characters[i].url == url) setDetails(store.characters[i]);
+    //         break;
+    //     }
+    // } else {
+    //     for (let i in store.planets){
+    //         if (store.planets[i].url == url) setDetails(store.planets[i]);
+    //     }
+    // }
 
     //useeffect
     // fetch(url)-> data -> hair / popul
@@ -53,14 +63,14 @@ const Card = ({sectionTitle, cardTitle, url, id}) => {
         cardType === "Characters" ?
 
         <ul className="list-unstyled card-text">
-            <li>Gender: {details.gender} </li>
-            <li>Hair-color: {details.hair_color} </li>
-            <li>Eye-Color: {details.eye_color}</li>
+            <li>Gender: {details.properties.gender} </li>
+            <li>Hair-color: {details.properties.hair_color} </li>
+            <li>Eye-Color: {details.properties.eye_color}</li>
         </ul>
         :
         <ul className="list-unstyled card-text">
-            <li>Population: {details.population}</li>
-            <li>Terrain: {details.terrain}</li>
+            <li>Population: {details.properties.population}</li>
+            <li>Terrain: {details.properties.terrain}</li>
         </ul>
     )
 

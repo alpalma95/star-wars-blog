@@ -1,9 +1,11 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Context } from "../store/appContext";
 
-const Details = (props) => {
+const Details = ({match}) => {
 
-    useEffect(() => {console.log(props.match)}, [])
+    useEffect(() => {console.log(match)}, [])
+
+    
 
     const {store, actions} = useContext(Context);
 

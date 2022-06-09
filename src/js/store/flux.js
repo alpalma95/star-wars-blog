@@ -17,6 +17,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(`https://www.swapi.tech/api/people/`)
 				.then(response => response.json())
 				.then(data => setStore({characters: data.results}))
+				.then(() => {
+					for (let i in store.characters){
+						fetch(store.characters[i].url)
+						.then(response => response.json())
+						.then(data => {
+							setStore({charactersDetails: [...store.charactersDetails, data.result]})
+						})
+					}
+				})
+				.then(()=> console.log(store))
 				.catch(err => console.error(err.message))
 				console.log(store)
 			},
@@ -26,6 +36,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(`https://www.swapi.tech/api/planets/`)
 				.then(response => response.json())
 				.then(data => setStore({planets: data.results}))
+				.then(() => {
+					for (let i in store.planets){
+						fetch(store.planets[i].url)
+						.then(response => response.json())
+						.then(data => {
+							setStore({planetsDetails: [...store.planetsDetails, data.result]})
+						})
+					}
+				})
+				.then(()=> console.log(store))
 				.catch(err => console.error(err.message))
 
 				console.log(store);
@@ -34,11 +54,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			loadCharactersDetails: (url) => {
 				const store = getStore();
 
-				fetch(url)
-				.then(response => response.json())
-				.then(data => {
-					setStore({charactersDetails: [...store.charactersDetails, data.result]})
-				})
+				
 				console.log(store)
 
 

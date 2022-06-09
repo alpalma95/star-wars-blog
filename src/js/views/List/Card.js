@@ -3,42 +3,38 @@ import {Link} from "react-router-dom";
 import {Context} from "../../store/appContext";
 
 
-const Card = ({sectionTitle, cardTitle, url, id}) => {
+const Card = ({sectionTitle, cardTitle, id}) => {
   
     const {store, actions} = useContext(Context);
 
-    useEffect(()=> {
-        if (sectionTitle === "Characters") actions.loadCharactersDetails(url);
-      
-    }, [])
-
-    useEffect(()=>{
-        if (sectionTitle === "Planets") actions.loadPlanetsDetails(url);
-    }, [])
     
     const [details, setDetails] = useState({
         properties: {
-            gender: "loading",
-            hair_color: "loading",
-            eye_color: "loading",
-            population: "loading",
-            terrain: "loading"
+            gender: "loading...",
+            hair_color: "loading...",
+            eye_color: "loading...",
+            population: "loading...",
+            terrain: "loading..."
         }
     }) //put values as undefined
 
-    // if (sectionTitle === "Characters"){
-    //     for (let i in store.characters){
-    //         if (store.characters[i].url == url) setDetails(store.characters[i]);
-    //         break;
-    //     }
-    // } else {
-    //     for (let i in store.planets){
-    //         if (store.planets[i].url == url) setDetails(store.planets[i]);
-    //     }
-    // }
-
-    //useeffect
-    // fetch(url)-> data -> hair / popul
+    if (sectionTitle === "Characters"){
+        useEffect(()=>{
+            for (let i in store.charactersDetails) {
+                if (store.charactersDetails[i].uid == id) {
+                    setDetails(store.charactersDetails[i])
+                }
+            }
+        }, [store.charactersDetails])
+    } else {
+        useEffect(()=> {
+            for (let i in store.planetsDetails) {
+                if (store.charactersDetails[i].uid == id) {
+                    setDetails(store.planetsDetails[i])
+                }
+            }
+        }, [store.planetsDetails])
+    }
 
     const cardType = sectionTitle;
 

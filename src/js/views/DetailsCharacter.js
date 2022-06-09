@@ -3,8 +3,22 @@ import { Context } from "../store/appContext";
 
 const Details = ({match}) => {
 
-    const [generalInfo, setGeneralInfo] = useState(null);
-    const [details, setDetails] = useState(null)
+    const [generalInfo, setGeneralInfo] = useState({
+        name: "loading"
+    });
+    const [details, setDetails] = useState({
+        description: "Loading...",
+        properties: {
+            gender: "Loading...",
+            hair_color: "Loading...",
+            eye_color: "Loading...",
+            skin_color: "Loading...",
+            birth_year: "Loading...",
+            height: "Loading..."
+        }
+    });
+
+    const {store, actions} = useContext(Context)
 
     useEffect(() => {
 
@@ -17,9 +31,6 @@ const Details = ({match}) => {
         }
 
     }, [])
-
-    const {store, actions} = useContext(Context);
-
 
     return (
         <div className="container">
@@ -55,7 +66,7 @@ const Details = ({match}) => {
                     </div>
                     <div>
                         <p className="fw-bold">Eye Color</p>
-                        <p>details.properties.eye_color</p>
+                        <p>{details.properties.eye_color}</p>
                     </div>
                 </div>
             </div>

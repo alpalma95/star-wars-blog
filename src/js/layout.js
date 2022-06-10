@@ -10,6 +10,7 @@ import { Footer } from "./component/footer";
 import List from "./views/List/List";
 import DetailsCharacter from "./views/DetailsCharacter";
 import DetailsPlanet from "./views/DetailsPlanet";
+import DetailsVehicles from "./views/DetailsVehicles";
 
 //create your first component
 const Layout = () => {
@@ -26,6 +27,7 @@ const Layout = () => {
 						<Route exact path="/" component={List} />
 						<Route exact path="/planets/:id" component={DetailsPlanet} />
 						<Route exact path="/people/:id" component={DetailsCharacter} />
+						<Route exact path="/vehicles/:id" component={DetailsVehicles} />
 					</Switch>
 					<Footer />
 				</ScrollToTop>

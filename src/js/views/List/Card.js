@@ -22,15 +22,19 @@ const Card = ({sectionTitle, cardTitle, id, imgId}) => {
         : 
         id === "p-1" ?
         "https://picsum.photos/300/300"
-        :
+        : cardType === "Planets" ?
         `https://starwars-visualguide.com/assets/img/planets/${imgId}.jpg`
+        :
+        `https://starwars-visualguide.com/assets/img/vehicles/${imgId}.jpg`
     )
     
     const routerLink = (
         cardType === "Characters" ?
         `/people/${id}`
-        :
+        : cardType === "Planets" ?
         `/planets/${id}`
+        :
+        `/vehicles/${id}`
     );
 
     const setIsActiveHandler = () => {

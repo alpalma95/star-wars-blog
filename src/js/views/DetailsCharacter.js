@@ -1,10 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import { Context } from "../store/appContext";
 
-const Details = ({match}) => {
+const DetailsCharacter = ({match}) => {
 
     const {store, actions} = useContext(Context);
-
 
     let detailsId = match.params.id.slice(2);
     let general = store.characters.find(x => x.uid == detailsId)
@@ -75,4 +74,4 @@ const Details = ({match}) => {
     )
 }
 
-export default Details
+export default DetailsCharacter;

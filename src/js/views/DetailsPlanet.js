@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import { Context } from "../store/appContext";
 
-const Details = ({match}) => {
+const DetailsPlanet = ({match}) => {
 
     useEffect(() => {console.log(match)}, [])
     const {store, actions} = useContext(Context);
@@ -88,4 +88,4 @@ const Details = ({match}) => {
     )
 }
 
-export default Details
+export default DetailsPlanet;

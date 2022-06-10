@@ -4,7 +4,7 @@ import {Context} from "../../store/appContext";
 import Spinner from "../../component/spinner"
 
 
-const Section = ({sectionTitle}) => {
+const SectionCharacters = ({sectionTitle}) => {
 
     const {store, actions} = useContext(Context)
 
@@ -35,4 +35,4 @@ const Section = ({sectionTitle}) => {
     )
 } 
 
-export default Section;
+export default SectionCharacters;

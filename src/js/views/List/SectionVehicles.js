@@ -4,7 +4,7 @@ import {Context} from "../../store/appContext";
 import Spinner from "../../component/spinner"
 
 
-const SectionPlanets = ({sectionTitle, url}) => {
+const SectionVehicles = ({sectionTitle, url}) => {
 
     const {store, actions} = useContext(Context)
 
@@ -14,14 +14,14 @@ const SectionPlanets = ({sectionTitle, url}) => {
             <h2 className="text-danger mb-5">{sectionTitle}</h2>
             <div className="d-flex overflow-auto gap-5">
             {
-                    store.planets.length != 0 ? 
-                        [...store.planets].map((x, i) => (
+                    store.vehicles.length != 0 ? 
+                        [...store.vehicles].map((x, i) => (
                             <Card 
                                 key={i}
                                 sectionTitle={sectionTitle}
                                 url={x.url}
                                 cardTitle={x.name}
-                                id={`p-${x.uid}`}
+                                id={`v-${x.uid}`}
                                 imgId={x.uid}
                             />
                         ))
@@ -35,4 +35,4 @@ const SectionPlanets = ({sectionTitle, url}) => {
     )
 } 
 
-export default SectionPlanets;
+export default SectionVehicles;

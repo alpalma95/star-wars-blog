@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {Context} from "../../store/appContext";
 
 
-const Dropdown = () => {
+const Dropdown = ({match}) => {
 
     const {store, actions} = useContext(Context);
 
@@ -19,7 +19,7 @@ const Dropdown = () => {
                     :
                     [...store.favorites].map((x, i) => (
                         <li className="d-flex justify-content-between" key={i}> 
-                            <Link to={x.id.includes('p') ? `/planets/${x.id}` : `people/${x.id}`}>
+                            <Link to={x.id.includes('p') ? `/planets/${x.id}` : x.id.includes('v') ? `/vehicles/${x.id}` : `/people/${x.id}`}>
                                 <p className="">
                                 {x.name}
                                 </p>
